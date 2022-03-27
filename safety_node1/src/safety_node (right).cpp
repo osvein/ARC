@@ -5,7 +5,6 @@
 // Publish to a topic with this message type
 #include <ackermann_msgs/AckermannDriveStamped.h>
 #include "std_msgs/Bool.h"
-#include "std_msgs/Float32.h"
 #include <cmath>
 
 #define SCAN_BEAMS 1080
@@ -34,15 +33,12 @@ private:
 
     // Publish bool data
     ros::Publisher bool_pub;
-  
-
-    ros::Publisher minDist_pub;
-
 
     double beam_angle(int beam) {
 	return -3.14159274101 + beam * 6.28318548202 / scan_beams;
     }
 
+	
 
 public:
     Safety() {
@@ -84,9 +80,6 @@ public:
 
         // Make a publisher for bool messages
         bool_pub = n.advertise<std_msgs::Bool>("/brake_bool", 10);
-
-        // Make a publisher for bool messages
-        minDist_pub = n.advertise<std_msgs::Float32>("/min_dist", 10);
     }
 
     void odom_callback(const nav_msgs::Odometry::ConstPtr &odom_msg) {
@@ -112,12 +105,15 @@ public:
 		else 
 			TTCs[i] = 1000.0;
 
-	
-	// Find closest distance
-	double mn_dist = 1000.0;
+
+	/*std::cout << std::endl << " ------------------------------------------------------------------- " << std::endl;
 	for (int i = 0; i < scan_beams; i++)
-		if (scan_msg->ranges[i] < mn_dist)
-			mn_dist = scan_msg->ranges[i];
+		std::cout << TTCs[i] << "  ";
+	std::cout << std::endl << " ------------------------------------------------------------------- " << std::endl;
+	std::cout << speed << std::endl;
+	std::cout << scan_msg->ranges[540] << std::endl;
+	std::cout << TTCs[540] << std::endl;*/
+
 
 
         // TODO: publish drive/brake message
@@ -132,13 +128,6 @@ public:
         // publish AckermannDriveStamped message to drive topic
         brake_pub.publish(drive_st_msg);
 	bool_pub.publish(braking);}
-
-
-
-
-	std_msgs::Float32 mn;
-	mn.data = mn_dist;
-	minDist_pub.publish(mn);
     }
 
 };
