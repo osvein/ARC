@@ -3,4 +3,4 @@ max_decel: 8.26 # meters/second^2
 # Lidar simulation parameters
 scan_beams: 1080
 
-min_ttc: 0.3
+min_ttc: 0.5
