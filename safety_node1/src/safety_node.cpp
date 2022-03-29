@@ -7,20 +7,22 @@
 #include <cmath>
 
 //2.2
+/*
 #include <dynamic_reconfigure/server.h>
 #include <safety_node1/TTC_paramsConfig.h>
+*/ 
 
 #define SCAN_BEAMS 1080
 #define BIG_TTC 1000.0
 #define SCAN_FIELD_OF_VIEW 4.71
 
 double MIN_TTC = 0.35;
-
+/*
 void callback(safety_node1::TTC_paramsConfig &config, uint32_t level) {
     ROS_INFO("Reconfigure Request TTC min value: %f", config.TTC);
     MIN_TTC = config.TTC;
 }
-
+*/
 
 class Safety {
 // The class that handles emergency braking
@@ -143,14 +145,15 @@ public:
 int main(int argc, char ** argv) {
     ros::init(argc, argv, "safety_node");
     Safety sn;
-
+    
+    /*
     //2.2
     dynamic_reconfigure::Server<safety_node1::TTC_paramsConfig> server;
     dynamic_reconfigure::Server<safety_node1::TTC_paramsConfig>::CallbackType f;
 
     f = boost::bind(&callback, _1, _2);
     server.setCallback(f);
-
+    */
 
     ros::spin();
     return 0;
