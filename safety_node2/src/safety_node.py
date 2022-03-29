@@ -11,7 +11,7 @@ from std_msgs.msg import Float32
 
 
 SCAN_BEAMS = 1080
-MIN_TTC = 0.35
+MIN_TTC = 0.4
 BIG_TTC = 600
 SCAN_FIELD_OF_VIEW = 4.71
 

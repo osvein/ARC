@@ -16,7 +16,7 @@
 #define BIG_TTC 1000.0
 #define SCAN_FIELD_OF_VIEW 4.71
 
-double MIN_TTC = 0.35;
+double MIN_TTC = 0.4;
 /*
 void callback(safety_node1::TTC_paramsConfig &config, uint32_t level) {
     ROS_INFO("Reconfigure Request TTC min value: %f", config.TTC);
