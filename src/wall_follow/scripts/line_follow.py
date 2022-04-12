@@ -10,9 +10,9 @@ from sensor_msgs.msg import Image, LaserScan
 from ackermann_msgs.msg import AckermannDriveStamped, AckermannDrive
 
 #PID CONTROL PARAMS
-kp = -2.2  #TODO
-kd = -0.01  #TODO
-ki = -0.002  #TODO
+kp = 1  #TODO
+kd = 0.01  #TODO
+ki = 0.003 #TODO
 servo_offset = 0.0
 prev_error = 0.0
 prev_time = 0.0 
@@ -95,25 +95,39 @@ class WallFollow:
         drive_msg.drive.speed = vel
         self.drive_pub.publish(drive_msg)
 
-    def followLeft(self, data, leftDist):
+
+    def followMiddle(self, data):
         #Follow left wall as per the algorithm 
-        theta = 55
+        theta = 10
         theta_rad = math.radians(theta)
 
+        # Left distance
         a = self.getRange(data, 180 - theta)	
         b = self.getRange(data, 180)
 
         alpha = math.atan2(a * math.cos(theta_rad) - b, a * math.sin(theta_rad))
 
-        wall_distance = b * math.cos(alpha) + CAR_LENGTH * math.sin(alpha)
-        print(wall_distance)
+        wall_distance_left = b * math.cos(alpha) + CAR_LENGTH * math.sin(alpha)
+        
+        # Left distance
+        a = self.getRange(data, theta)	
+        b = self.getRange(data, 0)
+
+        alpha = math.atan2(a * math.cos(theta_rad) - b, a * math.sin(theta_rad))
+
+        wall_distance_right = b * math.cos(alpha) + CAR_LENGTH * math.sin(alpha)
+        
+        middle_distance = (wall_distance_left + wall_distance_right)/2
+        
+        print(wall_distance_left, wall_distance_right)
 	
-        return leftDist -  wall_distance
+        return middle_distance -  wall_distance_right
+
 
     def lidar_callback(self, data):
         """ 
         """
-        error = self.followLeft(data, DESIRED_DISTANCE_LEFT)
+        error = self.followMiddle(data)
         #send error to pid_control
         self.pid_control(error, VELOCITY)
 
