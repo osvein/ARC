@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+
+<launch>
+    <include file="$(find f1tenth_simulator)/launch/simulator.launch"/>
+    <node pkg="follow_the_wall" type="reactive.py" name="follow_the_gap" output="screen"/>
+</launch>

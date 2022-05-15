@@ -1,0 +1,32 @@
+pose0: /amcl_pose #published by AMCL 2.1
+
+pose0_config: [true, true, false, false, false, true,
+     false, false, false, false, false, false,
+     false, false, false]
+
+pose0_differential: false #check how this works - velocity
+
+
+odom0: /odom
+
+odom0_config: [false, false, false, false, false, false,
+     true, true, false, false, false, true,
+     false, false, false]
+
+odom0_differential: false #same as above
+
+frequency: 50  
+two_d_mode: true
+odom_frame: odom
+publish_tf: false #also check this one
+map_frame: map
+base_link_frame: base_link
+
+#imu0: /imu/data
+#
+#imu0_config: [false, false, false,
+#              false, false, true,
+#              false, false, false,
+#              false, false, true,
+#              true, false, false]
+#imu0_differential: true

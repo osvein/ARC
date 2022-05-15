@@ -1,0 +1,35 @@
+ <launch>
+  
+  <include file="$(find f1tenth_simulator)/launch/simulator.launch"/>
+
+<node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization" clear_params="true">
+  
+  <param name="frequency" value="10" />  
+  <param name="two_d_mode" value="true" />
+  <param name="odom_frame" value="odom" />
+  <param name="publish_tf" value="true" /> <!-- false -->
+  <param name="map_frame" value="map" />
+  <param name="base_link_frame" value="base_link" />
+
+  <param name="pose0" value="amcl_pose" /> <!-- amcl_pose -->
+  
+  <rosparam param="pose0_config">
+    [true, true, false, false, false, true,
+     false, false, false, false, false, false,
+     false, false, false]</rosparam> 
+  
+  <param name="pose0_differential" value = false /> <!-- adicionado por mim -->
+
+  <param name="odom0" value="odom" />
+  <rosparam param="odom0_config">
+    [false, false, false, false, false, false,
+     true, true, false, false, false, true,
+     false, false, false]</rosparam>
+  
+  <param name="odom0_differential" value = false /> <!-- adicionado por mim -->
+
+  <param name="sensor_timeout" value="0.2" /> <!-- useless? -->
+
+  <remap from="odometry/filtered" to="odometry/filtered_map"/>
+</node>
+ </launch>

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(wall_follow)
+project(follow_the_gap)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -8,7 +8,7 @@ project(wall_follow)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
- # dynamic_reconfigure
+  dynamic_reconfigure
   ackermann_msgs
   nav_msgs
   rospy
@@ -73,7 +73,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
-#   ackermann_msgs#   nav_msgs#   sensor_msgs#   std_msgs
+#   std_msgs  # Or other packages containing msgs
 # )
 
 ################################################
@@ -91,9 +91,10 @@ find_package(catkin REQUIRED COMPONENTS
 ##     and list every .cfg file to be processed
 
 ## Generate dynamic reconfigure parameters in the 'cfg' folder
-#generate_dynamic_reconfigure_options(
-#  cfg/gap.cfg
-#)
+generate_dynamic_reconfigure_options(
+    cfg/gap.cfg
+#   cfg/DynReconf2.cfg
+)
 
 ###################################
 ## catkin specific configuration ##
@@ -106,8 +107,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES safety_node2
-#  CATKIN_DEPENDS ackermann_msgs nav_msgs rospy sensor_msgs std_msgs
+#  LIBRARIES follow_the_gap
+#  CATKIN_DEPENDS other_catkin_pkg
 #  DEPENDS system_lib
 )
 
@@ -119,12 +120,12 @@ catkin_package(
 ## Your package locations should be listed before other locations
 include_directories(
 # include
-  ${catkin_INCLUDE_DIRS}
+ ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/safety_node2.cpp
+#   src/${PROJECT_NAME}/follow_the_gap.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -135,9 +136,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/safety_node2_node.cpp)
-
-#add_dependencies(wall_follow ${PROJECT_NAME}_gencfg)
+# add_executable(${PROJECT_NAME}_node src/follow_the_gap_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -201,10 +200,10 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_safety_node2.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_follow_the_gap.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
 
 ## Add folders to be run by python nosetests
-# catkin_add_nosetests(test)
+# catkin_add_nosetests(test)#   cfg/DynReconf1.cfg

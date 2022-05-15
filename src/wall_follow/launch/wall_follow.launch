@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+
+<launch>
+    <include file="$(find f1tenth_simulator)/launch/simulator.launch"/>
+    <node pkg="wall_follow" type="wall_follow.py" name="wall_follow" output="screen"/>
+</launch>
