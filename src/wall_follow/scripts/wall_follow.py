@@ -10,9 +10,9 @@ from sensor_msgs.msg import Image, LaserScan
 from ackermann_msgs.msg import AckermannDriveStamped, AckermannDrive
 
 #PID CONTROL PARAMS
-kp = -2.2  #TODO
-kd = -0.01  #TODO
-ki = -0.002  #TODO
+kp = -2.3  #TODO
+kd = -0.0001  #TODO
+ki = -0.0004  #TODO
 servo_offset = 0.0
 prev_error = 0.0
 prev_time = 0.0 
@@ -73,8 +73,9 @@ class WallFollow:
         # PID - Controller
         angle += ki * integral
         integral += error * time_interval  # --------------------------------------------------- might need to dived by time
-        print(angle)
-        print("----------")
+        
+        #print(angle)
+        #print("----------")
 
         # prev values
         prev_error = error
@@ -82,9 +83,9 @@ class WallFollow:
     
         # Speed Controller
         if abs(angle) < 0.174533:
-            vel = 1.5
+            vel = 1
         elif abs(angle) < 0.349066:
-            vel = 1.0
+            vel = 0.75
         else:
             vel = 0.5
 
@@ -106,7 +107,7 @@ class WallFollow:
         alpha = math.atan2(a * math.cos(theta_rad) - b, a * math.sin(theta_rad))
 
         wall_distance = b * math.cos(alpha) + CAR_LENGTH * math.sin(alpha)
-        print(wall_distance)
+        #print(wall_distance)
 	
         return leftDist -  wall_distance
 

@@ -1,0 +1,13 @@
+
+<launch>
+  
+  <include file="$(find montecarlo)/launch/montecarlo.launch">
+    <!---->
+      <param name="tf_broadcast" value = "false"/> 
+  </include>
+  
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true">
+    <rosparam command="load" file="$(find fusion)/params/ekf_template.yaml"/>
+  </node>
+
+</launch>
